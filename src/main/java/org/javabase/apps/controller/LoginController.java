@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.javabase.apps.entity.Role;
 import org.javabase.apps.entity.User;
 import org.javabase.apps.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +34,7 @@ public class LoginController {
 	@RequestMapping(value="/registration", method = RequestMethod.POST)
 	public Map<String, Object> registration(@RequestBody User user) {
 		Map<String, Object> response= new HashMap<String, Object>();
-        Role role = new Role();
-        role.setRoleid(1);
-        
-		user.setRole(role);
+                
 		user.setRegdate(new Date());
 		user.setIsactive("Y");
 		user.setIsnonexpired("Y");

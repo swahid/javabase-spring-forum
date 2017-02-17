@@ -32,11 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	       
 	    	http.authorizeRequests()
 	    	.antMatchers("/resources/**").permitAll()
-	    	.antMatchers("/404").permitAll()
-	        .antMatchers("/login").permitAll()
-	        .antMatchers("/registration").permitAll()
-	        .antMatchers("/**").authenticated()
-//	        .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
+	        .antMatchers("/**").permitAll()
 	        .and().formLogin().loginPage("/login")
 	        .usernameParameter("username").passwordParameter("password")
 	        .failureUrl("/login?error=1")

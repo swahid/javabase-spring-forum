@@ -30,7 +30,6 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 7790622876833971743L;
 	
 	private Integer userid;
-    private Role role;
     private String username;
     private String password;
     private String email;
@@ -43,31 +42,7 @@ public class User implements Serializable{
     private String isnonlocked;
     private Date expDate;
 
-   public User() {
-   }
-
-	
-   public User(Role role, String username, String password, String email) {
-       this.role = role;
-       this.username = username;
-       this.password = password;
-       this.email = email;
-   }
-   public User(Role role, String username, String password, String email, String firstName, String lastName, String phone, String isactive, Date regdate, String isnonexpired, String isnonlocked, Date expDate) {
-      this.role = role;
-      this.username = username;
-      this.password = password;
-      this.email = email;
-      this.firstName = firstName;
-      this.lastName = lastName;
-      this.phone = phone;
-      this.isactive = isactive;
-      this.regdate = regdate;
-      this.isnonexpired = isnonexpired;
-      this.isnonlocked = isnonlocked;
-      this.expDate = expDate;
-   }
-  
+    
    @Id 
    @GeneratedValue(strategy=GenerationType.IDENTITY)
    @Column(name="userid", unique=true, nullable=false)
@@ -78,17 +53,6 @@ public class User implements Serializable{
    public void setUserid(Integer userid) {
        this.userid = userid;
    }
-
-   @ManyToOne(fetch=FetchType.LAZY)
-   @JoinColumn(name="roleid", nullable=false)
-   public Role getRole() {
-       return this.role;
-   }
-   
-   public void setRole(Role role) {
-       this.role = role;
-   }
-
    
    @Column(name="username", nullable=false, length=45)
    public String getUsername() {

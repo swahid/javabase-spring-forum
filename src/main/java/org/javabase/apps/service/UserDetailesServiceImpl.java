@@ -40,7 +40,7 @@ public class UserDetailesServiceImpl implements UserDetailsService{
 			boolean accountNonLocked= user.getIsnonlocked().equalsIgnoreCase("Y");
 			
 			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-			authorities.add(new SimpleGrantedAuthority(user.getRole().getRolename()));
+			authorities.add(new SimpleGrantedAuthority(user.getUsername()));
 			
 			org.springframework.security.core.userdetails.User securedUser = 
 					new org.springframework.security.core.userdetails.User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
