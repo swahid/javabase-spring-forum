@@ -38,7 +38,8 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
         templateResolver.setPrefix("/WEB-INF/templates/");
         templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("HTML5");
+        templateResolver.setTemplateMode("LEGACYHTML5");
+        templateResolver.setCacheable(false);
     return templateResolver;
     }
     @Bean(name ="templateEngine")        
@@ -51,6 +52,8 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     public ThymeleafViewResolver getViewResolver(){
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver(); 
         viewResolver.setTemplateEngine(getTemplateEngine());
+        viewResolver.setOrder(1);
+        viewResolver.setViewNames(new String[]{"*", "js/*", "template/*"});
     return viewResolver;
     }
     //end Thymeleaf specific configuration
