@@ -12,35 +12,36 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
- * @author OITI
- *
+ * @author      Saurav Wahid<saurav1161@gmail.com>
+ * @version     1.0.0
+ * @since       1.0.0
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
-		@Autowired
-		UserDetailsService userDetailsService;
-		
-		@Autowired
-	    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-			auth.userDetailsService(userDetailsService);
-	    }
-	     
-	    @Override
-	    protected void configure(HttpSecurity http) throws Exception {
-	       
-	    	http.authorizeRequests()
-	    	.antMatchers("/resources/**").permitAll()
-	        .antMatchers("/**").permitAll()
-	        .and().formLogin().loginPage("/login")
-	        .usernameParameter("username").passwordParameter("password")
-	        .failureUrl("/login?error=1")
-	        .and().csrf() //csrf enable so you need to send csrf parameter
-	        .and().logout().logoutUrl("/logout")
-	        .logoutSuccessUrl("/login")
-	        .and().exceptionHandling().accessDeniedPage("/404");
-	    }
-	    
-	    
+    
+        @Autowired
+        UserDetailsService userDetailsService;
+        
+        @Autowired
+        public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+            auth.userDetailsService(userDetailsService);
+        }
+         
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+           
+            http.authorizeRequests()
+            .antMatchers("/resources/**").permitAll()
+            .antMatchers("/**").permitAll()
+            .and().formLogin().loginPage("/login")
+            .usernameParameter("username").passwordParameter("password")
+            .failureUrl("/login?error=1")
+            .and().csrf() //csrf enable so you need to send csrf parameter
+            .and().logout().logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
+            .and().exceptionHandling().accessDeniedPage("/404");
+        }
+        
+        
 }

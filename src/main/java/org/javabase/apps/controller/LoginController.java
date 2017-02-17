@@ -19,40 +19,45 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author      Saurav Wahid<saurav1161@gmail.com>
+ * @version     1.0.0
+ * @since       1.0.0
+ */
 @Controller
 public class LoginController {
-	
-	@Autowired
-	UserService userservice;
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+    
+    @Autowired
+    UserService userservice;
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
-	
-	@ResponseBody
-	@RequestMapping(value="/registration", method = RequestMethod.POST)
-	public Map<String, Object> registration(@RequestBody User user) {
-		Map<String, Object> response= new HashMap<String, Object>();
+    
+    @ResponseBody
+    @RequestMapping(value="/registration", method = RequestMethod.POST)
+    public Map<String, Object> registration(@RequestBody User user) {
+        Map<String, Object> response= new HashMap<String, Object>();
                 
-		user.setRegdate(new Date());
-		user.setIsactive("Y");
-		user.setIsnonexpired("Y");
-		user.setIsnonlocked("Y");
-		
-		Boolean save = userservice.addUser(user);
-		if (save) {
-			response.put("suceess", true);
-	        response.put("message", "Registration Sucess");
-			return response;
-		}else {
-			response.put("error", true);
-	        response.put("message", "Registration Failed");
-			return response;
-		}
-	}
+        user.setRegistrationDate(new Date());
+        user.setAccountActive(true);
+        user.setNonExpired(true);
+        user.setNonLocked(true);
+        
+        Boolean save = userservice.addUser(user);
+        if (save) {
+            response.put("suceess", true);
+            response.put("message", "Registration Sucess");
+            return response;
+        }else {
+            response.put("error", true);
+            response.put("message", "Registration Failed");
+            return response;
+        }
+    }
 
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){    

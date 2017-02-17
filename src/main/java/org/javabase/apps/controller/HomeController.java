@@ -11,24 +11,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Handles requests for the application home page.
+ * @author      Saurav Wahid<saurav1161@gmail.com>
+ * @version     1.0.0
+ * @since       1.0.0
  */
 @Controller
 public class HomeController {
-	
-	private static final Logger log = LoggerFactory.getLogger(HomeController.class);
-	
-	@Autowired
+    
+    private static final Logger log = LoggerFactory.getLogger(HomeController.class);
+    
+    @Autowired
     UserService userservice;
     
     @Autowired
     HttpSession response;
-	
-	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
-	public String home() {
+    
+    @RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+    public String home() {
 
-		log.info("Welcome home! ");
-		return "index";
-	}
-	
+        log.info("Welcome home! ");
+        return "index";
+    }
+    
 }

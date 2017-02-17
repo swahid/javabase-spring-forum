@@ -19,33 +19,39 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
- 
+
+/**
+ * @author      Saurav Wahid<saurav1161@gmail.com>
+ * @version     1.0.0
+ * @since       1.0.0
+ */
+
 @Configuration
 @EnableWebMvc
 @Import(DBConfig.class)
 @ComponentScan(basePackages = "org.javabase.apps")
 public class AppConfig extends WebMvcConfigurerAdapter{
      
-	//start Thymeleaf specific configuration
-    @Bean(name ="templateResolver")	
+    //start Thymeleaf specific configuration
+    @Bean(name ="templateResolver")    
     public ServletContextTemplateResolver getTemplateResolver() {
-    	ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-    	templateResolver.setPrefix("/WEB-INF/templates/");
-    	templateResolver.setSuffix(".html");
-    	templateResolver.setTemplateMode("HTML5");
-	return templateResolver;
+        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
+        templateResolver.setPrefix("/WEB-INF/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("HTML5");
+    return templateResolver;
     }
-    @Bean(name ="templateEngine")	    
+    @Bean(name ="templateEngine")        
     public SpringTemplateEngine getTemplateEngine() {
-    	SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-    	templateEngine.setTemplateResolver(getTemplateResolver());
-	return templateEngine;
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(getTemplateResolver());
+    return templateEngine;
     }
     @Bean(name="viewResolver")
     public ThymeleafViewResolver getViewResolver(){
-    	ThymeleafViewResolver viewResolver = new ThymeleafViewResolver(); 
-    	viewResolver.setTemplateEngine(getTemplateEngine());
-	return viewResolver;
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver(); 
+        viewResolver.setTemplateEngine(getTemplateEngine());
+    return viewResolver;
     }
     //end Thymeleaf specific configuration
     @Bean(name ="messageSource")
@@ -66,11 +72,11 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     
     @Bean
     public LocaleResolver localeResolver(){
-		CookieLocaleResolver resolver = new CookieLocaleResolver();
-		resolver.setDefaultLocale(new Locale("en"));
-		resolver.setCookieName("localeCookie");
-		resolver.setCookieMaxAge(4800);
-		return resolver;
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setDefaultLocale(new Locale("en"));
+        resolver.setCookieName("localeCookie");
+        resolver.setCookieMaxAge(4800);
+        return resolver;
     }
     
     
