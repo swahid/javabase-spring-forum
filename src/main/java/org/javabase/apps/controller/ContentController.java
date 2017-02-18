@@ -46,13 +46,17 @@ public class ContentController {
         
         try {
             content.setCreateDate(new Date());
-            contentService.addContent(content);
-            
-            response.put("suceess", true);
-            response.put("message", "Content Post");
+             boolean save = contentService.addContent(content);
+            if (save) {
+                response.put("suceess", true);
+                response.put("message", "Content Post");
+            }else {
+                response.put("error", true);
+                response.put("message", "unable to save");
+            }
         } catch (Exception e) {
             response.put("suceess", false);
-            response.put("message", "error");
+            response.put("message", "unable to save");
             e.printStackTrace();
         }
         

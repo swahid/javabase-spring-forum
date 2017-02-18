@@ -35,7 +35,7 @@ public class LoginController {
         if (auth != null){    
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login";
+        return "redirect:/home";
     }
 
 }

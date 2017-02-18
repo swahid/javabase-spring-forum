@@ -17,7 +17,7 @@ $(document).ready(function($) {
             data["contentTitle"]        = $("#contentTitle").val();
             data["topicId"]             = $("#category").val();
             data["contentDescription"]  = $("#contentDescription").val();
-            data["createUser"]          = $("#contentDescription").val();
+            data["createUser"]          = $("#createUser").val();
             data["createDate"]          = new Date();
         
         var token = $('#csrfToken').val();
