@@ -75,15 +75,17 @@
                         </div>
                         <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
                             <div class="stnt pull-left">                            
-                                <form action="content/create" method="get" class="form">
+                                <form th:action="@{/content/create}" method="get" class="form">
                                     <button class="btn btn-primary">Create New Thread</button>
                                 </form>
                             </div>
-                            <div class="env pull-left">&nbsp;</div>
+                            <div class="env pull-left" sec:authorize="isAuthenticated()">&nbsp;</div>
 <!--                             <div class="env pull-left"><i class="fa fa-envelope"></i></div> -->
 
                             <div class="avatar pull-left dropdown" sec:authorize="isAnonymous()">
-                                <a th:href="@{/login}">Login</a>
+                                &nbsp;
+                                <a th:href="@{/login}">Login</a> &nbsp;
+                                <a th:href="@{/registration}">Sign up</a>
                                 <!-- <ul class="dropdown-menu" role="menu">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" th:href="@{/logout}">Logout</a></li>
                                 </ul> -->

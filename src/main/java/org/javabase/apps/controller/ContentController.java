@@ -3,10 +3,19 @@
  */
 package org.javabase.apps.controller;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.javabase.apps.entity.Content;
+import org.javabase.apps.service.ContentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author      Saurav Wahid<saurav1161@gmail.com>
@@ -17,7 +26,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value="content")
 public class ContentController {
     
-    @RequestMapping(method=RequestMethod.GET)
+    @Autowired
+    ContentService contentService;
+    
+    @RequestMapping(value="create",method=RequestMethod.GET)
     public String thread(){
         return "new_topic";
     }
@@ -26,9 +38,25 @@ public class ContentController {
     public String loadThread(@PathVariable int contentId){
         return "topic";
     }
-    @RequestMapping(value="create",method=RequestMethod.GET)
-    public String newThread(){
-        return "new_topic";
+    
+    @ResponseBody
+    @RequestMapping(value="new",method=RequestMethod.POST)
+    public Map<String, Object> newThread(@RequestBody Content content){
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            content.setCreateDate(new Date());
+            contentService.addContent(content);
+            
+            response.put("suceess", true);
+            response.put("message", "Content Post");
+        } catch (Exception e) {
+            response.put("suceess", false);
+            response.put("message", "error");
+            e.printStackTrace();
+        }
+        
+        return response;
     }
 
 }
