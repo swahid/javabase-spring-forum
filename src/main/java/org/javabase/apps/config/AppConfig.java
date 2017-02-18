@@ -5,6 +5,8 @@ package org.javabase.apps.config;
 
 import java.util.Locale;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,13 +14,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 /**
  * @author      Saurav Wahid<saurav1161@gmail.com>
@@ -30,32 +37,46 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 @EnableWebMvc
 @Import(DBConfig.class)
 @ComponentScan(basePackages = "org.javabase.apps")
-public class AppConfig extends WebMvcConfigurerAdapter{
-     
-    //start Thymeleaf specific configuration
-    @Bean(name ="templateResolver")    
-    public ServletContextTemplateResolver getTemplateResolver() {
-        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-        templateResolver.setPrefix("/WEB-INF/templates/");
-        templateResolver.setSuffix(".html");
-        templateResolver.setTemplateMode("LEGACYHTML5");
-        templateResolver.setCacheable(false);
-    return templateResolver;
+public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+
+    private ApplicationContext applicationContext;
+
+    public void setApplicationContext(ApplicationContext applicationContext) {
+      this.applicationContext = applicationContext;
     }
-    @Bean(name ="templateEngine")        
-    public SpringTemplateEngine getTemplateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(getTemplateResolver());
-    return templateEngine;
+
+    @Bean
+    public ViewResolver viewResolver() {
+      ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+      resolver.setTemplateEngine(templateEngine());
+      resolver.setCharacterEncoding("UTF-8");
+      return resolver;
     }
-    @Bean(name="viewResolver")
-    public ThymeleafViewResolver getViewResolver(){
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver(); 
-        viewResolver.setTemplateEngine(getTemplateEngine());
-        viewResolver.setOrder(1);
-        viewResolver.setViewNames(new String[]{"*", "js/*", "template/*"});
-    return viewResolver;
+
+    @Bean
+    public TemplateEngine templateEngine() {
+      SpringTemplateEngine engine = new SpringTemplateEngine();
+      engine.setEnableSpringELCompiler(true);
+      engine.setTemplateResolver(templateResolver());
+      engine.addDialect(new SpringSecurityDialect());
+      return engine;
     }
+
+    private ITemplateResolver templateResolver() {
+      SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+      resolver.setApplicationContext(applicationContext);
+      resolver.setPrefix("/WEB-INF/templates/");
+      resolver.setSuffix(".html");
+      resolver.setTemplateMode(TemplateMode.HTML);
+      resolver.setCacheable(false);
+      return resolver;
+    }
+    
+/*    @Bean
+    public static DefaultRolesPrefixPostProcessor defaultRolesPrefixPostProcessor() {
+        return new DefaultRolesPrefixPostProcessor();
+    }*/
+    
     //end Thymeleaf specific configuration
     @Bean(name ="messageSource")
     public MessageSource getMessageSource() {

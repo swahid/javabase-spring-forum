@@ -82,7 +82,13 @@
                             <div class="env pull-left">&nbsp;</div>
 <!--                             <div class="env pull-left"><i class="fa fa-envelope"></i></div> -->
 
-                            <div class="avatar pull-left dropdown">
+                            <div class="avatar pull-left dropdown" sec:authorize="isAnonymous()">
+                                <a th:href="@{/login}">Login</a>
+                                <!-- <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" th:href="@{/logout}">Logout</a></li>
+                                </ul> -->
+                            </div>
+                            <div class="avatar pull-left dropdown" sec:authorize="isAuthenticated()">
                                 <a data-toggle="dropdown" href="#"><img th:src="@{/resources/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
                                 <div class="status green">&nbsp;</div>
                                 <ul class="dropdown-menu" role="menu">

@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Forum :: New account</title>
         
-        <span th:substituteby="commons :: common-css"></span>
+        <span th:replace="commons :: common-css"></span>
     </head>
     <body class="newaccountpage">
 
         <div class="container-fluid">
             
-            <span th:substituteby="commons :: common-header-fragment"></span>
+            <span th:replace="commons :: common-header-fragment"></span>
             
             <section class="content">
                 <div class="container">
@@ -104,13 +104,13 @@
                 </div>
             </section>
             <footer>
-                <span th:substituteby="commons :: common-footer-fragment"></span>
+                <span th:replace="commons :: common-footer-fragment"></span>
             </footer>
         </div>
 
 
         <!-- get js source from CommonHtml -->
-        <span th:substituteby="commons :: common-js"></span>
+        <span th:replace="commons :: common-js"></span>
         
     </body>
 </html>

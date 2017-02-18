@@ -37,6 +37,11 @@
         <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${springsecurity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>${springsecurity.version}</version>
         </dependency>
@@ -53,17 +58,20 @@
         
         <!-- thymeleaf spring dependency -->
         <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring4</artifactId>
-            <version>2.1.2.RELEASE</version>
+          <groupId>org.thymeleaf</groupId>
+          <artifactId>thymeleaf</artifactId>
+          <version>3.0.0.RELEASE</version>
         </dependency>
-        
-        <!-- thymeleaf LEGACYHTML5 -->
         <dependency>
-             <groupId>net.sourceforge.nekohtml</groupId>
-             <artifactId>nekohtml</artifactId>
-             <version>1.9.21</version>
-         </dependency>
+          <groupId>org.thymeleaf</groupId>
+          <artifactId>thymeleaf-spring4</artifactId>
+          <version>3.0.0.RELEASE</version>
+        </dependency>
+        <dependency>
+		    <groupId>org.thymeleaf.extras</groupId>
+		    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+		    <version>3.0.0.RELEASE</version>
+		</dependency>
         
         <!-- Spring ORM -->
         <dependency>
