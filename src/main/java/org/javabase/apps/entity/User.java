@@ -45,7 +45,7 @@ public class User implements java.io.Serializable {
         this.userId = userId;
     }
 
-    @Column(name = "user_email", nullable = false, length = 45)
+    @Column(name = "user_email", length = 45)
     public String getUserEmail() {
         return this.userEmail;
     }

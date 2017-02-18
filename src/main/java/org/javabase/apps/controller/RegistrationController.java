@@ -3,6 +3,7 @@
  */
 package org.javabase.apps.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +38,10 @@ public class RegistrationController {
     public Map<String, Object> newRegistration(@RequestBody User user){
         Map<String, Object> response = new HashMap<>();
         
+        user.setAccountActive(true);
+        user.setNonExpired(true);
+        user.setNonLocked(true);
+        user.setRegistrationDate(new Date());
         boolean save =userService.addUser(user);
         if (save) {
             response.put("suceess", true);

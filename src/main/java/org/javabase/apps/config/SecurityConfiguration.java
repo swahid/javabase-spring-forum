@@ -37,10 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/**").permitAll()
             .and().formLogin().loginPage("/login")
             .usernameParameter("username").passwordParameter("password")
-            .failureUrl("/login?error=1")
+            .failureUrl("/login?error=true")
             .and().csrf() //csrf enable so you need to send csrf parameter
             .and().logout().logoutUrl("/logout")
-            .logoutSuccessUrl("/login")
+            .logoutSuccessUrl("/home")
             .and().exceptionHandling().accessDeniedPage("/404");
         }
         

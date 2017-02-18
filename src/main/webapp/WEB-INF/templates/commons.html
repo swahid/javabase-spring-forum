@@ -35,7 +35,6 @@
 
         <script th:src="@{/resources/js/bootstrap.min.js}"></script>
         <script th:src="@{/resources/js/forum/registration.js}"></script>
-        <script th:src="@{/resources/js/forum/login.js}"></script>
         <script th:src="@{/resources/js/ajax.js}"></script>
         <script th:src="@{/resources/js/alert.js}"></script>
         <script th:src="@{/resources/js/plugin/moment/moment.min.js}"></script>
@@ -87,7 +86,7 @@
                                 <a data-toggle="dropdown" href="#"><img th:src="@{/resources/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
                                 <div class="status green">&nbsp;</div>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" th:href="@{/logout}">Logout</a></li>
                                 </ul>
                             </div>
                             
