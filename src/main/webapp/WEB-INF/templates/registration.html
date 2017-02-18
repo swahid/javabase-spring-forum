@@ -27,8 +27,6 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
 
-
-
                             <!-- POST -->
                             <div class="post">
                                 <form action="#" class="form newtopic" method="post" id="registerForm">
@@ -55,24 +53,30 @@
                                             <div class="posttext pull-left">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6">
-                                                        <input type="text" placeholder="First Name" class="form-control validate[required]" id="firstName"/>
+                                                        <input type="text" placeholder="First Name" class="form-control validate[required] text-input" id="firstName"/>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
-                                                        <input type="text" placeholder="Last Name" class="form-control validate[required]" id="lastName"/>
+                                                        <input type="text" placeholder="Last Name" class="form-control validate[required] text-input" id="lastName"/>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <input type="text" placeholder="User Name" class="form-control validate[required]" id="username"/>
+                                                    <input type="text" placeholder="Email" class="form-control validate[required, custom[email]] text-input" id="email"/>
+                                                </div>
+                                                <div>
+                                                    <input type="text" placeholder="User Name" class="form-control validate[required] text-input" id="username"/>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6">
-                                                        <input type="password" placeholder="Password" class="form-control validate[required]" id="pass" name="pass" />
+                                                        <input type="password" placeholder="Password" class="form-control validate[required] text-input" id="pass" name="pass" />
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
-                                                        <input type="password" placeholder="Retype Password" class="form-control validate[required,equals[password]]" id="pass2" name="pass2" />
+                                                        <input type="password" placeholder="Retype Password" class="form-control validate[required,equals[pass]] text-input" id="pass2" name="pass2" />
                                                     </div>
                                                 </div>
-
+                                                <div class="row">
+                                                    <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
+                                                    <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
+                                                </div>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>  

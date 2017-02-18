@@ -3,12 +3,17 @@
  */
 package org.javabase.apps.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.javabase.apps.entity.User;
 import org.javabase.apps.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author      Saurav Wahid<saurav1161@gmail.com>
@@ -27,16 +32,21 @@ public class RegistrationController {
         return "registration";
     }
     
-    
+    @ResponseBody
     @RequestMapping(value="new", method = RequestMethod.POST)
-    public String newRegistration(User user){
+    public Map<String, Object> newRegistration(@RequestBody User user){
+        Map<String, Object> response = new HashMap<>();
         
         boolean save =userService.addUser(user);
         if (save) {
-            return "redirect:/login";
+            response.put("suceess", true);
+            response.put("message", "Registration Sucess");
+            response.put("url", "login");
         }else {
-            return "redirect:/registration";
+            response.put("suceess", false);
+            response.put("message", "Registration Failed");
         }
+        return response;
     }
 
 }

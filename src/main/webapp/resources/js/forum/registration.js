@@ -17,19 +17,23 @@ $(document).ready(function($) {
         event.preventDefault();
         
         // Form validation use jquery validation plugin
-        javascript: $(registerForm).validationEngine('attach');
-        if (!$(registerForm).validationEngine('validate')) {
+        javascript: $("#registerForm").validationEngine('attach');
+        if (!$("#registerForm").validationEngine('validate')) {
             return;
         }
-        var data = {}
-            data["username"]   = $("#firstName").val(),
-            data["username"]   = $("#lastName").val(),
-            data["username"]   = $("#username").val(),
-            data["password"]   = $("#pass2").val(),
+        var data    = {},
             url = "registration/new";
+            data["firstName"]   = $("#firstName").val();
+            data["lastName"]    = $("#lastName").val();
+            data["userEmail"]   = $("#email").val();
+            data["username"]    = $("#username").val();
+            data["password"]    = $("#pass2").val();
         
         var token = $('#csrfToken').val();
         var header = $('#csrfHeader').val();
+        console.log(data);
+        console.log(token);
+        console.log(header);
         
         /*
          * if in spring aplication csrf enable
@@ -46,18 +50,15 @@ $(document).ready(function($) {
                 xhr.setRequestHeader(header, token);
             },
             success  : function(resonse) {
-                var message = "registration Sucess";
+                var message = resonse.message;
                 console.log(resonse.data);
-                alert(resonse.message);
-                data = null;
+                success(message);
+                location.href= resonse.url;
                 document.getElementById("registerForm").reset()
             },
             error      : function(e) {
                 console.log("ERROR: ",e);
-                alert("registration falied");
-//                        $("#msg").html(e.message);
-                data = null;
-                document.getElementById("registerForm").reset()
+                error("registration falied");
             }
         });
         

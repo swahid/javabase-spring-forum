@@ -3,7 +3,7 @@
  * registration function with jquery ajax 
  */
 $(document).ready(function($) {
-    $("#registerForm").submit(function(event) {
+    $("#loginForm").submit(function(event) {
         
         event.preventDefault();
         var data = {}
