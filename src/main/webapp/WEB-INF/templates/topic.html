@@ -57,7 +57,90 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
-                            </div><!-- POST -->
+                            </div>
+                            <!-- ./POST -->
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="clearfix">&nbsp;</div>
+                            <!-- POST COMMENT SECTION -->
+                            <div class="post beforepagination" th:each="comments : ${comments}">
+                                <div class="topwrap">
+                                    <div class="userinfo pull-left">
+                                        <div class="avatar">
+                                            <img th:src="@{/resources/images/avatar.jpg}" alt="" />
+                                            <div class="status green">&nbsp;</div>
+                                        </div>
+                                        <div class="icons">
+                                            <span th:text="${comments.createUser}">User Name</span>
+                                            <!-- <img th:src="@{/resources/images/icon1.jpg}" alt="" /><img th:src="@{/resources/images/icon4.jpg}" alt="" /> -->
+                                        </div>
+                                    </div>
+                                    <div class="posttext pull-left">
+                                        <h2><a th:href="@{|/content/view/${comments.contentId}|}"><span th:text="${comments.commentId}">Comments</span> </a></h2>
+                                        <p th:text="${comments.commentDescription}">Comment Description</p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>                              
+                                <div class="postinfobot">
+                                    <div class="likeblock pull-left">
+                                        <!-- <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>25</a>
+                                        <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i>3</a> -->
+                                    </div>
+                                    <div class="prev pull-left">                                        
+                                        <!-- <a href="#"><i class="fa fa-reply"></i></a> -->
+                                    </div>
+                                    <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comments.createDate}"></span></div>
+                                    <div class="next pull-right">                                        
+                                        <a th:href="@{|/content/view/${comments.commentId}/edit|}"><i class="fa fa-edit"></i></a>
+                                        <a th:href="@{|/content/view/${comments.commentId}/delete|}"><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!-- END COMMENT SECTION -->
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="clearfix">&nbsp;</div>
+                            <!-- POST COMMENT BOX SECTION -->
+                            <div class="post">
+                                <form action="#" class="form newtopic" method="post" id="commentBox">
+                                    <div class="topwrap">
+                                        <div class="userinfo pull-left">
+                                            <div class="avatar">
+                                                <!-- <img th:src="@{/resources/images/avatar4.jpg}" alt="" /> -->
+                                                <!-- <div class="status red">&nbsp;</div> -->
+                                            </div>
+                                            <div class="icons">
+                                                <!-- <img th:src="@{/resources/images/icon3.jpg}" alt="" /><img th:src="@{/resources/images/icon4.jpg}" alt="" /><img th:src="@{/resources/images/icon5.jpg}" alt="" /><img th:src="@{/resources/images/icon6.jpg}" alt="" /> -->
+                                            </div>
+                                        </div>
+                                        <div class="posttext pull-left">
+                                            <div>
+                                            	<label for="commentTitle"> Enter Comment</label>
+                                                <input type="text" class="form-control" id="commentTitle" disabled="disabled"/>
+                                            </div>
+                                            <div>
+                                                <textarea id="commentDescription" placeholder="Write Your Comment" maxlength="299" class="form-control validate[required]" onkeypress="descriptionLength()"></textarea>
+                                                <p><span id="remaining">299</span> Characters remaining</p>
+                                            </div>
+                                            <div class="row">
+                                                    <input type="hidden" id="createUser"  value="saurav"/>
+                                                    <input type="hidden" id="csrfToken"  th:value="${_csrf.token}"/>
+                                                    <input type="hidden" id="csrfHeader" th:value="${_csrf.headerName}"/>
+                                                </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>                              
+                                    <div class="postinfobot">
+                                        <div class="pull-right postreply">
+                                            <!-- <div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div> -->
+                                            <div class="pull-left"><button type="submit" class="btn btn-primary">Post Your Comment</button></div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- ./END COMMENT BOX SECTION -->
+                            
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <!-- -->
@@ -164,5 +247,6 @@
         
         <!-- get js source from CommonHtml -->
         <span th:replace="commons :: common-js"></span>
+        <script th:src="@{/resources/js/forum/comments.js}"></script>
     </body>
 </html>

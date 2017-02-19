@@ -1,39 +1,27 @@
 
 /*
- * REGISTRATION  JS FUNCTION
+ * Comments JS function
  */
 $(document).ready(function($) {
-    
-    var revapi = $('.tp-banner').revolution({
-                    delay : 15000,
-                    startwidth : 1200,
-                    startheight : 278,
-                    hideThumbs : 10,
-                    fullWidth : "on"
-                });
-    
-    $("#registerForm").submit(function(event) {
+    $("#commentBox").submit(function(event) {
         
         event.preventDefault();
         
         // Form validation use jquery validation plugin
-        javascript: $("#registerForm").validationEngine('attach');
-        if (!$("#registerForm").validationEngine('validate')) {
+        javascript: $("#commentBox").validationEngine('attach');
+        if (!$("#commentBox").validationEngine('validate')) {
             return;
         }
         var data    = {},
-            url = "registration/new";
-            data["firstName"]   = $("#firstName").val();
-            data["lastName"]    = $("#lastName").val();
-            data["userEmail"]   = $("#email").val();
-            data["username"]    = $("#username").val();
-            data["password"]    = $("#pass2").val();
+            url = "new";
+            data["commentTitle"]        = $("#commentTitle").val();
+            data["commentDescription"]  = $("#commentDescription").val();
+            data["contentDescription"]  = $("#contentDescription").val();
+            data["createUser"]          = $("#createUser").val();
+            data["createDate"]          = new Date();
         
         var token = $('#csrfToken').val();
         var header = $('#csrfHeader').val();
-        console.log(data);
-        console.log(token);
-        console.log(header);
         
         /*
          * if in spring aplication csrf enable
@@ -51,10 +39,8 @@ $(document).ready(function($) {
             },
             success  : function(resonse) {
                 var message = resonse.message;
-                console.log(resonse.data);
                 success(message);
-                location.href= resonse.url;
-                document.getElementById("registerForm").reset()
+                document.getElementById("commentBox").reset()
             },
             error      : function(e) {
                 console.log("ERROR: ",e);
@@ -63,4 +49,12 @@ $(document).ready(function($) {
         });
         
     });
+    
 });
+function descriptionLength() {
+    var total = 299;
+    var val = $("#commentDescription").val();
+
+    var count = val.length;
+    document.getElementById('remaining').innerHTML = total - count;
+}

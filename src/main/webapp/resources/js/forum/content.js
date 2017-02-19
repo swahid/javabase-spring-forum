@@ -1,6 +1,6 @@
 
 /*
- * registration function with jquery ajax 
+ * Content JS function
  */
 $(document).ready(function($) {
     $("#contentForum").submit(function(event) {
