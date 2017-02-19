@@ -46,4 +46,10 @@ public class ContentServiceImpl implements ContentService{
         return contentMapper.deleteContent(contentId);
     }
 
+	@Override
+	@Transactional(readOnly=true)
+	public Content getContentbyId(int id) {
+		return contentMapper.getContentbyId(id);
+	}
+
 }

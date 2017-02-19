@@ -61,4 +61,9 @@ public class ContentMapperImpl implements ContentMapper{
         }
     }
 
+	@Override
+	public Content getContentbyId(int id) {
+		return (Content) session.getCurrentSession().get(Content.class, id);
+	}
+
 }

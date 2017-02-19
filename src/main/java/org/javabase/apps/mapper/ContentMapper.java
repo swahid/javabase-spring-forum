@@ -15,6 +15,7 @@ import org.javabase.apps.entity.Content;
 public interface ContentMapper {
     
     public List<Content> getAllContent();
+    public Content getContentbyId(int id);
     public Boolean addContent(Content content);
     public Boolean updateContent(Content content);
     public Boolean deleteContent(Content contentId);

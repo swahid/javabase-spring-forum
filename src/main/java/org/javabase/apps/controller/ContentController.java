@@ -11,6 +11,7 @@ import org.javabase.apps.entity.Content;
 import org.javabase.apps.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,9 @@ public class ContentController {
     }
     
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
-    public String loadThread(@PathVariable int contentId){
+    public String loadThread(@PathVariable int contentId, Model model){
+    	
+    	model.addAttribute("viewContent", contentService.getContentbyId(contentId));
         return "topic";
     }
     

@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
                             <!-- POST -->
-                            <div class="post beforepagination">
+                            <div class="post beforepagination" th:each="viewContent : ${viewContent}">
                                 <div class="topwrap">
                                     <div class="userinfo pull-left">
                                         <div class="avatar">
@@ -32,12 +32,13 @@
                                             <div class="status green">&nbsp;</div>
                                         </div>
                                         <div class="icons">
-                                            <img th:src="@{/resources/images/icon1.jpg}" alt="" /><img th:src="@{/resources/images/icon4.jpg}" alt="" /><img th:src="@{/resources/images/icon5.jpg}" alt="" /><img th:src="@{/resources/images/icon6.jpg}" alt="" />
+                                            <span th:text="${viewContent.createUser}">User Name</span>
+                                            <!-- <img th:src="@{/resources/images/icon1.jpg}" alt="" /><img th:src="@{/resources/images/icon4.jpg}" alt="" /> -->
                                         </div>
                                     </div>
                                     <div class="posttext pull-left">
-                                        <h2>10 Kids Unaware of Their Halloween Costume</h2>
-                                        <p>Today, we're looking at three particularly interesting stories. Pinterest added a new location-based feature on Wednesday that uses Place Pins as a way to map out vacations and favorite areas. Southwest Airlines is providing Wi-Fi access from gate to gate for $8 per day through an onboard hotspot. And in an effort to ramp up its user base, Google Wallet is offering a debit card that can take out cash from.</p>
+                                        <h2><a th:href="@{|/content/view/${viewContent.contentId}|}"><span th:text="${viewContent.contentTitle}">Content Title</span> </a></h2>
+                                        <p th:text="${viewContent.contentDescription}">Content Description</p>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>                              
@@ -49,10 +50,10 @@
                                     <div class="prev pull-left">                                        
                                         <a href="#"><i class="fa fa-reply"></i></a>
                                     </div>
-                                    <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : 20 Nov @ 9:30am</div>
+                                    <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${viewContent.createDate}"></span></div>
                                     <div class="next pull-right">                                        
-                                        <a href="#"><i class="fa fa-share"></i></a>
-                                        <a href="#"><i class="fa fa-flag"></i></a>
+                                        <a th:href="@{|/content/view/${viewContent.contentId}/edit|}"><i class="fa fa-edit"></i></a>
+                                        <a th:href="@{|/content/view/${viewContent.contentId}/delete|}"><i class="fa fa-trash"></i></a>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
