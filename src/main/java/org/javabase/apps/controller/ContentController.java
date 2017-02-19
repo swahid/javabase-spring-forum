@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.javabase.apps.entity.Comment;
 import org.javabase.apps.entity.Content;
+import org.javabase.apps.service.CommentService;
 import org.javabase.apps.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class ContentController {
     @Autowired
     ContentService contentService;
     
+    @Autowired
+    CommentService commentService;
+    
     @RequestMapping(value="create",method=RequestMethod.GET)
     public String thread(){
         return "new_topic";
@@ -38,7 +43,10 @@ public class ContentController {
     @RequestMapping(value="view/{contentId}",method=RequestMethod.GET)
     public String loadThread(@PathVariable int contentId, Model model){
     	
-    	model.addAttribute("viewContent", contentService.getContentbyId(contentId));
+    	Content conetent =contentService.getContentbyId(contentId);
+    	
+    	model.addAttribute("viewContent", conetent);
+    	model.addAttribute("comments", commentService.getCommentbyContentId(conetent.getContentId()));
         return "topic";
     }
     
@@ -63,6 +71,24 @@ public class ContentController {
             e.printStackTrace();
         }
         
+        return response;
+    }
+    
+    @ResponseBody
+    @RequestMapping(value="view/comment/new",method=RequestMethod.POST)
+    public Map<String, Object> addComment(@RequestBody Comment comment){
+        Map<String, Object> response = new HashMap<>();
+        
+        comment.setCreateDate(new Date());
+        boolean save = commentService.addComment(comment);
+        
+        if (save) {
+        	response.put("suceess", true);
+            response.put("message", "Comment Published");
+		}else {
+			response.put("error", true);
+	        response.put("message", "Comment Unable to Published");
+		}
         return response;
     }
 

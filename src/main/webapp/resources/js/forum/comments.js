@@ -13,11 +13,11 @@ $(document).ready(function($) {
             return;
         }
         var data    = {},
-            url = "new";
+            url = "comment/new";
             data["commentTitle"]        = $("#commentTitle").val();
             data["commentDescription"]  = $("#commentDescription").val();
-            data["contentDescription"]  = $("#contentDescription").val();
             data["createUser"]          = $("#createUser").val();
+            data["contentId"]          = $("#contentId").val();
             data["createDate"]          = new Date();
         
         var token = $('#csrfToken').val();

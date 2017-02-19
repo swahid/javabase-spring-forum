@@ -29,6 +29,7 @@ public class Comment implements java.io.Serializable {
     private Date updateDate;
     private String updateUser;
     private String commentFlag;
+    private Integer contentId;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -105,5 +106,14 @@ public class Comment implements java.io.Serializable {
     public void setCommentFlag(String commentFlag) {
         this.commentFlag = commentFlag;
     }
+
+    @Column(name = "content_id", unique = true, nullable = false)
+	public Integer getContentId() {
+		return contentId;
+	}
+
+	public void setContentId(Integer contentId) {
+		this.contentId = contentId;
+	}
 
 }
